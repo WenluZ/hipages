@@ -25,7 +25,7 @@ To solve the first, a dbt_utils.recency dbt test can be added to _web__sources.y
 To solve the second, I've created a macro, update_or_add_load_ts, to use as a post hook to update the load_ts column. A test is in place in _web__sources to test against this column.
 
 
-#### Task 4: Add tests for macros
+### Task 4: Add tests for macros
 
 1. test for macro age_in_years:
 customer360/tests/test_macro_age_in_years.sql
@@ -33,29 +33,29 @@ customer360/tests/test_macro_age_in_years.sql
 customer360/tests/test_macro_as_timestamp_utc.sql
 
 
-#### Task 5:  Macros contain Postgres-specific functions, however our production environment is in Databricks. How would you refactor them, to allow switching between these two syntax?
+### Task 5:  Macros contain Postgres-specific functions, however our production environment is in Databricks. How would you refactor them, to allow switching between these two syntax?
 
 I've updated two macros:
 - age_in_years
 - as_timestamp_utc
 
 
-#### Task 6:  enhance the `customers` model
+### Task 6:  Enhance the `customers` model
 
 1. The model has been updated to enable additional customer attributes.
 2. Created a singular test test_total_amount.sql, and added unique & not null tests into _marketing__models.yml
 3. Created a macro to be used in the updated model get_distinct_values.sql.
 
-#### Task 7:  Any other improvements ?
+### Task 7:  Any other improvements ?
 
 1. Enable incremental load and create dim (type 2)/fct tables (type 1) to capture changes.
 2. Implement a consumption layer/feature store as an interact layer with downstream.
 3. Set up a CI/CD pipeline.
 
 
-#### Task 8:  
+### Task 8:  
 
-1. Product Category Recommender - how to implement Next Best Product Category?
+##### Product Category Recommender - how to implement Next Best Product Category?
 
 - Potentail additional datasets: 
   Product dimension (with different level of category attributes, colour, age & gender flag - i.e. Clothing Male Audlt -rather than just Clothing )
@@ -63,14 +63,13 @@ I've updated two macros:
   Browsing history/ Cart Details
 - create a feature store at customer level - aggregating based on different dimensions.
 
-2. Data Sharing: how would you implement PII on this data
+##### Data Sharing: how would you implement PII on this data
 
-- Step 1: Define PII data classifcation, example:
-  Email -> PI
-  customer_id -> tech_id
-  subsurb -> pi_quasi
-  order_id -> data 
+1.  Step 1: Define PII data classifcation, example:
+  - Email -> PI 
+  - customer_id -> tech_id
+  - subsurb -> pi_quasi
+  - order_id -> data 
 
-- Step 2: Apply Hash (Sha2 Hash or Salt-hash) based on the pii data classification before sharing
-
-- Step 3: internally, we can apply tagging & masking based the pii classification to further secure privacy
+2.  Step 2: Apply Hash (Sha2 Hash or Salt-hash) based on the pii data classification before sharing
+3.  Step 3: internally, we can apply tagging & masking based the pii classification to further secure privacy
