@@ -21,7 +21,7 @@ There are two ways to interpret this requirement:
 2. Ensure the seed load time of transaction data is not older than 1 day.
 
 To solve the first, a dbt_utils.recency dbt test can be added to _web__sources.yml file, testing against the transaction_date field. The test should run every time the data is loaded. I've set the severity as warn to avoid hard failure, considering the maximum transaction_date in the database is 2023-05-09 09:12:21.000.
--
+
 To solve the second, I've created a macro, update_or_add_load_ts, to use as a post hook to update the load_ts column. A test is in place in _web__sources to test against this column.
 
 
